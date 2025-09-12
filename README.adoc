@@ -1,0 +1,466 @@
+= Metanorma taste for PDF Association
+
+== Purpose
+
+This document provides basic configuration information for PDF Association
+authors using Metanorma.
+
+This repository is managed collectively by the PDF Association and Ribose.
+
+== About the PDF Association
+
+PDF Association (also "PDFa") is the standards development organization for PDF
+technology.
+
+It develops and publishes a variety of specifications and guidelines to support
+the implementation and use of PDF technology, through its own publishing
+program and in cooperation with ISO.
+
+Its specifications co-published with ISO include the ISO 32000 series (PDF), ISO
+19005 family of standards (PDF/A), ISO 14289 (PDF/UA), and ISO 24517 (PDF/E).
+
+
+== Implementation details
+
+The `pdfa` document class of Metanorma is implemented as a Metanorma Taste,
+which is a set of customizations to Metanorma that implement the PDF Association's
+publishing requirements.
+
+The `pdfa` document class is defined in the `metanorma-taste` gem, which is
+automatically installed when you install the `metanorma` gem.
+
+
+== Types of documents
+
+The PDF Association publishes a variety of documents. Each type of document is
+referred to as a `doctype`` in Metanorma.
+
+The `pdfa` document class supports the following `doctype` values:
+
+`specification`:: Specifications. These are normative documents that define
+technical standards for PDF technology.
+
+`application-note`:: Application Notes (AN). These are informative documents that
+provide guidance on the implementation pertaining to particular versions of PDF
+technology.
+
+`technical-note`:: Technical Notes (TN). These are informative documents that provide
+additional technical information on specific aspects of PDF technology.
+
+`best-practice-guide`:: Best Practice Guides (BPG). These are informative
+documents that provide recommendations and best practices for using PDF
+technology in various contexts.
+
+The "doctype" of PDF Association documents through ISO is performed
+through the `iso` document class of Metanorma.
+
+
+== Authoring a PDFa document
+
+A PDF Association document in Metanorma is realized with a Metanorma AsciiDoc
+file with the `.adoc` extension.
+
+In this file, include the appropriate document header attributes and its
+content.
+
+The necessary document header attributes and document structures are described
+in the following sections.
+
+
+== Document structure
+
+=== General
+
+The required document structure of a PDF Association document depends on the
+document type.
+
+The "Foreword" section is required for all document types.
+
+=== Specification
+
+A specification document must include the following sections:
+
+* (unnumbered) Foreword
+* (unnumbered) Introduction
+* (Clause 1) Scope
+* (Clause 2) Normative references
+* (Clause 3) Terms and definitions
+* (Clause 4...n) Body of the specification
+* (Annex A...n) Annexes (optional)
+* (unnumbered) Bibliography (optional)
+
+=== Application note, Technical note, Best practice guide
+
+An application note document must include the following sections:
+
+* (unnumbered) Foreword
+* (unnumbered) Introduction (optional)
+* (Clause 1) Scope
+* (Clause 2) Normative references
+* (Clause 3...n) Body of the application note (a Terms and definitions section is
+  optional)
+* (Annex A...n) Annexes (optional)
+* (unnumbered) Bibliography (optional)
+
+
+== Document header attributes
+
+=== General
+
+Syntax:
+
+[source,adoc]
+----
+= EA-PDF v1.0 Specification: An archival email format based on PDF/A
+:title-intro-en: EA-PDF v1.0 Specification
+:title-main-en: An archival email format based on PDF/A
+:docnumber: 1
+:edition: 1
+:revdate: 2024-10-10
+:copyright-year: 2024
+:language: en
+:committee: EA-PDF LWG
+:committee-type: technical
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: specification
+:status: published
+:docidentifier: PDFa eapdf:2024 (1.0.0)
+:imagesdir: images
+:coverpage-image: images/coverpage.png
+:plantuml-image-format: svg
+:local-cache-only:
+----
+
+Where,
+
+`= <title>`:: The document title. It may include a subtitle separated by a
+colon. This is overriden by the `:title-intro-en:` and `:title-main-en:`
+attributes.
+
+`:title-intro-en:`:: The introductory part of the document title in English.
+
+`:title-main-en:`:: The main part of the document title in English.
+
+`:docnumber:`:: The document number assigned by the PDF Association.
+
+`:edition:`:: The numeric edition number of the document.
+
+`:revdate:`:: The revision date of the document in `YYYY-MM-DD` format.
+
+`:copyright-year:`:: The copyright year of the document.
+
+`:language:`:: The language of the document. This is usually `en` for English.
+
+`:committee:`:: The name of the committee that developed the document.
++
+[example]
+====
+`EA-PDF LWG`, `PDF Technical Working Group (TWG)`, `PDF Validation Technical
+Working Group (TWG)`, `PDF/A TWG and PDF/UA TWG`.
+====
+
+`:committee-type:`:: The type of committee. This is usually `technical`,
+as the PDF Association documents are developed by technical committees.
+
+`:mn-document-class:`:: The Metanorma document class. This is always `pdfa` for
+PDF Association documents.
+
+`:mn-output-extensions:`:: The output formats to generate. This is usually
+`xml,html,doc,pdf,rxl`.
+
+`:doctype:`:: The type of document. This must be one of the supported `doctype`
+values: `specification`, `application-note`, `technical-note`, or
+`best-practice-guide`.
+
+`:status:`:: The status of the document. This can be `draft`, `proposed`, or
+`published`.
+
+`:docidentifier:`:: The document identifier assigned by the PDF Association.
+
+`:imagesdir:`:: The directory where images used in the document are stored
+which is used as the root path of all image file references in the document.
+
+`:coverpage-image:`:: (optional)
+The path to the cover page image file, which would be set inside the middle
+"square" of the PDF Association cover page. This file is a PNG or SVG file.
+
+`:local-cache-only:`:: (optional)
+This attribute is used to indicate that the document
+should be processed using only local resources, without fetching any external
+resources.
+
+`:plantuml-image-format:`:: (optional, only when using PlantUML diagrams)
+The image format to use for PlantUML diagrams. This is usually "svg" for PDF
+Association documents to render vector diagrams.
+
+
+=== Examples
+
+==== Specification
+
+[source,adoc]
+----
+= EA-PDF v1.0 Specification: An archival email format based on PDF/A
+:docnumber: 1
+:edition: 1
+:revdate: 2024-10-10
+:copyright-year: 2024
+:language: en
+:title-intro-en: EA-PDF v1.0 Specification
+:title-main-en: An archival email format based on PDF/A
+:committee: EA-PDF LWG
+:committee-type: technical
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: specification
+:status: published
+:docidentifier: PDFa eapdf:2024 (1.0.0)
+:imagesdir: images
+:local-cache-only:
+----
+
+==== Application note
+
+[source,adoc]
+----
+= PDF Association PDF 2.0 Application Note 002
+:docnumber: 2
+:edition: 1
+:revdate: 2018-10-27
+:copyright-year: 2018
+:language: en
+:title-intro-en: PDF 2.0 Application Note 002
+:title-main-en: Associated Files
+:committee: PDF Technical Working Group (TWG)
+:committee-type: technical
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: application-note
+:status: published
+:docidentifier: PDFa AN 002:2018 (1.0.0)
+:imagesdir: images
+:coverpage-image: images/coverpage.png
+:local-cache-only:
+----
+
+==== Technical note
+
+[source,adoc]
+----
+= PDF Association Technical Note 0010: Clarifications of ISO 19005, parts 1-3 for developers of PDF/A creators and validators
+:docnumber: 3
+:edition: 1
+:revdate: 2017-06-29
+:copyright-year: 2017
+:language: en
+:title-main-en: Clarifications of ISO 19005, parts 1-3 for developers of PDF/A creators and validators
+:committee: PDF Validation Technical Working Group (TWG)
+:committee-type: technical
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: technical-note
+:status: published
+:docidentifier: PDFa TN 0010:2017 (1.0.0)
+:imagesdir: images
+:local-cache-only:
+----
+
+==== Best practice guide
+
+[source,adoc]
+----
+= Conforming to both PDF/A & PDF/UA
+:docnumber: 4
+:edition: 1
+:revdate: 2025-06-10
+:copyright-year: 2025
+:language: en
+:title-main-en: Conforming to both PDF/A & PDF/UA
+:committee: PDF/A TWG and PDF/UA TWG
+:committee-type: technical
+:mn-document-class: pdfa
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:doctype: best-practice-guide
+:status: published
+:docidentifier: PDFa BPG pdfa-ua:2025 (1.0.0)
+:imagesdir: images
+:local-cache-only:
+----
+
+== Document clause contents
+
+=== General
+
+Metanorma is a semantic textual processor that imposes particular syntax on
+structured elements.
+
+In particular, the bibliographic sections ("Normative references",
+"Bibliography") and the "Terms and definitions" section support complex needs,
+with further details provided in official Metanorma documentation.
+
+=== Foreword
+
+The Foreword preface section describes the document's origin, its authorship,
+and any acknowledgments.
+
+.Example of a Foreword section
+[example]
+====
+[source,adoc]
+----
+== Foreword
+
+This Application Note was produced by the PDF Association's PDF Technical
+Working Group (TWG) to explain the use of the Associated Files feature defined
+in ISO 32000-2 (PDF 2.0).
+
+This document provides interpretation of the existing specifications, and does
+not change the text of those specifications.
+
+The principal authors of this document are Dietrich von Seggern (callas
+software), Boris Doubrov (Dual Lab) and Duff Johnson (PDF Association, ISO 32000
+co-Project Leader).
+----
+====
+
+=== Scope
+
+The Scope clause defines the subject matter and the extent of the document's
+coverage.
+
+.Example of a Scope clause
+[example]
+====
+[source,adoc]
+----
+== Scope
+
+This document describes how to create reusable and accessible documents using
+the Portable Document Format (PDF). It builds on the Tagged PDF features defined
+in PDF 2.0, extending their requirements for the purposes of reuse and
+accessibility. This document focuses primarily on the document format (syntax),
+not the content itself, and does not mandate or restrict processing of the
+document in any manner. This document does not specify:
+
+* processing requirements, including processes for utilizing the PDF to enable
+reuse or accessibility;
+
+* processes for achieving conformance with this specification from source
+digital or paper documents;
+
+* technical design, user interface, implementation, or operational details;
+
+* physical methods of storing these documents such as media and storage
+conditions;
+
+* required computer hardware and/or operating systems;
+
+* provisions specific to content (beyond programmatic access and textual
+representation);
+
+* provisions applying to specific classes (e.g. invoices, reports, etc.) of
+documents.
+----
+====
+
+=== Normative references
+
+The Normative references clause lists the documents that are indispensable for
+the application of the document.
+
+.Example of a Normative references clause
+[example]
+====
+[source,adoc]
+----
+[bibliography]
+== Normative references
+
+* [[[ISO_32000-2,ISO 32000-2:2020]]]
+
+* [[[ISO_TS_32005,ISO/TS 32005:2023]]]
+
+* [[[W3C_DPUB_ARIA,W3C dpub-aria-1.0]]]
+----
+====
+
+=== Terms and definitions
+
+The Terms and definitions clause provides definitions of terms used in the
+document. Each term is defined as a subclause.
+
+For detailed usage, please refer to Metanorma documentation.
+
+.Example of a Terms and definitions clause
+[example]
+====
+[source,adoc]
+----
+== Terms and definitions
+
+=== artifact marked content sequence
+
+artifact defined solely by a marked content sequence, and not defined by a
+structure element
+
+=== assistive technology
+
+hardware or software added to, or incorporated within, a system that increases
+accessibility for an individual
+
+[.source]
+<<ISO_9241-171,clause=3.5>>
+
+=== AT
+
+{{assistive technology}}
+----
+====
+
+=== Annexes
+
+An annex is a section that provides additional information related to the main
+content of the document.
+
+Annexes can be normative or informative, set using the `obligation` attribute of
+the `[appendix]` element.
+
+.Example of a normative annex
+[example]
+====
+[source,adoc]
+----
+[appendix,obligation=informative]
+== Example PDF Declaration for an external standard
+...
+----
+====
+
+=== Bibliography
+
+The Bibliography section lists documents that are relevant to the document but
+not indispensable for its application.
+
+.Example of a Bibliography clause
+[example]
+====
+[source,adoc]
+----
+[bibliography]
+== Bibliography
+
+* [[[ISO_32000_1,ISO 32000-1:2008]]]
+
+* [[[ISO_32000_2,ISO 32000-2:2020]]]
+
+* [[[ISO_14289_1,ISO 14289-1:2014]]]
+----
+====
+
+
+== Copyright and license
+
+The PDF Association logo and its textual material is copyright to PDF Association.
+
+The remaining content is copyright to Ribose.
